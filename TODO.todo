@@ -1,14 +1,20 @@
-☐ Add basic functionality
-	☐ Recognize Mic
-	☐ Count Millis
-	☐ Reset Millis
+✔ Add basic functionality @done (3/19/2017, 1:08:32 AM)
+	✔ Recognize Mic @done (3/19/2017, 1:07:26 AM)
+	✔ Count Millis @done (3/19/2017, 1:07:27 AM)
+	✔ Reset Millis @done (3/19/2017, 1:07:28 AM)
 
 ☐ UI
-	☐ Control panel
-		☐ Change Threshold
-		☐ "Reset" Button
-		☐ "Download Button"
+	✔ Control panel @done (3/19/2017, 1:07:30 AM)
+		✔ Change Threshold @done (3/19/2017, 1:07:31 AM)
+		✔ "Reset" Button @done (3/19/2017, 1:08:36 AM)
+		☐ Restart Threshold
+		☐ Table with results
 
-☐ Other Stuff
-	☐ Git Repo
-	☐ Possibly Github Pages (?)
+☐ Brain
+	☐ Add brain support
+	☐ Train with Data
+	☐ Add Guesses to the table
+
+✔ Other Stuff @done (3/19/2017, 1:08:25 AM)
+	✔ Git Repo @done (3/19/2017, 1:08:26 AM)
+	✔ Possibly Github Pages (?) @done (3/19/2017, 1:08:27 AM)
