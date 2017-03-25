@@ -11,9 +11,7 @@
 	<script src="libraries/p5.js"></script>
 	<script src="libraries/p5.dom.js"></script>
 	<script src="libraries/p5.sound.js"></script>
-	<script src="libraries/brain.min.js"></script>
 	<script src="sketch.js"></script>
-
 	<link rel="stylesheet" href="./app.css">
 </head>
 
@@ -24,9 +22,25 @@
 			<label>Volume Threshold:</label>
 		</div>
 
+		<div id="toThreshold">
+			<label>Time Out Threshold:</label>
+		</div>
+
 		<button id="reset">
 			Reset
 		</button>
+	</div>
+
+	<div class="results">
+		<table id="table">
+			<thead>
+				<tr>
+					<td>Space</td>
+					<td>Prediction</td>
+					<td>Time</td>
+				</tr>
+			</thead>
+		</table>
 	</div>
 </body>
 
