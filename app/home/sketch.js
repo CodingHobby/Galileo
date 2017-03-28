@@ -25,41 +25,6 @@ init = '<thead> <tr>' +
 	'<td>T Batteria</td>' +
 	'</tr></thead>'
 
-// Dati esperimento con orologio ad acqua
-// var expO = [
-// 	{
-// 		dist: 30,
-// 		time: 16
-// 	},
-// 	{
-// 		dist: 90,
-// 		time: 29
-// 	}
-// ]
-// Dati esperimento con cronometro
-// var expT = [
-// 	{
-// 		dist: 42.5,
-// 		time: 1
-// 	},
-// 	{
-// 		dist: 90,
-// 		time: 2
-// 	}
-// ]
-
-// Dati esperimento con batteria
-// var expB = [
-// 	{
-// 		dist: 30,
-// 		time: 0.8
-// 	},
-// 	{
-// 		dist: 120,
-// 		time: 1.71
-// 	}
-// ]
-
 var initialMillis
 
 function setup() {
@@ -187,36 +152,39 @@ function reset(expD) {
 
 // Inizializziamo / Reinizializziamo la tabella
 function initTable(expD, expT, expB) {
+	select('#table').html(init)
 	expD.forEach((d, i) => {
 		// Rappresentazioni grafiche per ogni set di dati
 		var eld = [
-			createElement('td', d.dist + ' cm').id('os' + i),
-			createElement('td', d.time + ' ml').id('ot' + i)
+			createElement('td', (d.dist || 0) + ' cm').id('os' + i),
+			createElement('td', (d.time || 0) + ' ml').id('ot' + i)
 		]
+
 		var elt = [
-			createElement('td', expT[i].dist + ' cm').id('ts' + i),
-			createElement('td', expT[i].time + ' s').id('tt' + i),
+			createElement('td', (expT[i].dist || 0) + ' cm').id('ts' + i),
+			createElement('td', (expT[i].time || 0) + ' s').id('tt' + i),
 		]
+
 		var elb = [
-			createElement('td', expB[i].dist + 'cm').id('bs' + i),
+			createElement('td', (expB[i].dist || 0) + ' cm').id('bs' + i),
 			createElement('td', 't').id('bt' + i)
 		]
-		// Creiamo una riga
-		var tr = createElement('tr')
+	// Creiamo una riga
+	var tr = createElement('tr')
 
-		// Aggiungiamo alla righa ogni colonna
-		eld.forEach(el => {
-			el.parent(tr)
-		})
-		elt.forEach(el => {
-			el.parent(tr)
-		})
-		elb.forEach(el => {
-			el.parent(tr)
-		})
-		// Aggiungiamo alla tabella la riga che abbiamo creato
-		table.child(tr)
+	// Aggiungiamo alla righa ogni colonna
+	eld.forEach(el => {
+		el.parent(tr)
 	})
+	elt.forEach(el => {
+		el.parent(tr)
+	})
+	elb.forEach(el => {
+		el.parent(tr)
+	})
+	// Aggiungiamo alla tabella la riga che abbiamo creato
+	table.child(tr)
+})
 }
 
 function clearTable(table) {
