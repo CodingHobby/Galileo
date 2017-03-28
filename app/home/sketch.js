@@ -1,15 +1,22 @@
 // Iniziamo definendo tutte le variabili
-var mic
-var table
-var level
-var lvlThreshSl
-var toThreshSl
-var toThresh
-var ringing = false
-var times = []
-var predictions = []
+var mic,
+	table,
+	level,
+	lvlThreshSl,
+	toThreshSl,
+	toThresh,
+	ringing = false,
+	predictions = [],
+	count = -1,
+
+	db = firebase.database(),
+	ref = db.ref('data'),
+	expO = [],
+	expT,
+	expB
+
 // Contenuto iniziale della tavola
-var init = '<thead> <tr>' +
+init = '<thead> <tr>' +
 	'<td>D O. Acqua</td>' +
 	'<td>T O. Acqua</td>' +
 	'<td>D Timer</td>' +
@@ -19,46 +26,46 @@ var init = '<thead> <tr>' +
 	'</tr></thead>'
 
 // Dati esperimento con orologio ad acqua
-var expO = [
-	{
-		dist: 30,
-		time: 16
-	},
-	{
-		dist: 90,
-		time: 29
-	}
-]
-
+// var expO = [
+// 	{
+// 		dist: 30,
+// 		time: 16
+// 	},
+// 	{
+// 		dist: 90,
+// 		time: 29
+// 	}
+// ]
 // Dati esperimento con cronometro
-var expT = [
-	{
-		dist: 42.5,
-		time: 1
-	},
-	{
-		dist: 90,
-		time: 2
-	}
-]
+// var expT = [
+// 	{
+// 		dist: 42.5,
+// 		time: 1
+// 	},
+// 	{
+// 		dist: 90,
+// 		time: 2
+// 	}
+// ]
 
 // Dati esperimento con batteria
-var expB = [
-	{
-		dist: 30,
-		time: 0.8
-	},
-	{
-		dist: 120,
-		time: 1.71
-	}
-]
+// var expB = [
+// 	{
+// 		dist: 30,
+// 		time: 0.8
+// 	},
+// 	{
+// 		dist: 120,
+// 		time: 1.71
+// 	}
+// ]
 
 var initialMillis
 
 function setup() {
 	// Creiamo la tabella
 	table = select('#table')
+	table.html(init)
 	// Creiamo la rappresentazione grafica del volume
 	var c = createCanvas(100, 200)
 	c.parent(select('#graph'))
@@ -77,9 +84,59 @@ function setup() {
 	initialMillis = 0
 
 	// Iniziamo ad aspettare che qualcuno clicki sul pulsante "reset"
-	document.getElementById('reset').addEventListener('click', () => reset(expO))
+	document.getElementById('reset').addEventListener('click', () => {
+		initialMillis = millis()
+	})
+	document.getElementById('reset-table').addEventListener('click', () => clearTable(select('#table')))
 	// Inseriamo i dati nella tabella
-	initTable(expO, expT, expB)
+	ref.on("value", function (data) {
+		var stuff = data.val()
+		var keys = Object.keys(stuff)
+		var ts
+
+		keys.forEach(function (key, i) {
+			ts = stuff[key]
+			console.log(ts)
+			expO = [
+				{
+					dist: ts.o1.dist,
+					time: ts.o2.time
+				},
+				{
+					dist: ts.o2.dist,
+					time: ts.o2.time
+				}
+			]
+
+			expT = [
+				{
+					dist: ts.t1.dist,
+					time: ts.t2.time
+				},
+				{
+					dist: ts.t2.dist,
+					time: ts.t2.time
+				}
+			]
+
+			expB = [
+				{
+					dist: ts.b1.dist,
+					time: ts.b1.time
+				},
+				{
+					dist: ts.b2.dist,
+					time: ts.b2.time
+				}
+			]
+
+			reset(expO)
+
+		})
+	}, function (err) {
+		alert(err)
+		console.error(err)
+	})
 }
 
 // Questo blocco si ripete all'infinito
@@ -109,7 +166,10 @@ function draw() {
 		ringing = true
 		times.push((millis() - initialMillis))
 		// Aggiornamento della tabella
-		makeTable(times)
+		count++;
+		let bt = select('#bt' + count)
+		if (bt)
+			bt.html(((millis() - initialMillis) / 1000).toFixed('2'))
 	}
 
 	// Questo vuol dire che il piatto ha suonato due volte di fila senza pausa
@@ -122,31 +182,24 @@ function draw() {
 function reset(expD) {
 	times = []
 	initialMillis = millis()
-	initTable(expO, expT, expB)
-}
-
-// Creiamo una nuova tabella
-function makeTable(vals) {
-	initTable(expO, expT, expB)
+	initTable(expD, expT, expB)
 }
 
 // Inizializziamo / Reinizializziamo la tabella
 function initTable(expD, expT, expB) {
-	table.html(init)
-
 	expD.forEach((d, i) => {
 		// Rappresentazioni grafiche per ogni set di dati
 		var eld = [
-			createElement('td', d.dist + ' cm').id('space' + i),
-			createElement('td', d.time + ' ml').id('t' + i)
+			createElement('td', d.dist + ' cm').id('os' + i),
+			createElement('td', d.time + ' ml').id('ot' + i)
 		]
 		var elt = [
-			createElement('td', expT[i].dist + ' cm').id('space' + i),
-			createElement('td', expT[i].time + ' s').id('time' + i),
+			createElement('td', expT[i].dist + ' cm').id('ts' + i),
+			createElement('td', expT[i].time + ' s').id('tt' + i),
 		]
 		var elb = [
-			createElement('td', expB[i].dist + 'cm').id('space' + i),
-			createElement('td', times[i] ? (times[i] / 1000).toFixed(2) + ' s' : 't').id('pre' + i)
+			createElement('td', expB[i].dist + 'cm').id('bs' + i),
+			createElement('td', 't').id('bt' + i)
 		]
 		// Creiamo una riga
 		var tr = createElement('tr')
@@ -164,4 +217,10 @@ function initTable(expD, expT, expB) {
 		// Aggiungiamo alla tabella la riga che abbiamo creato
 		table.child(tr)
 	})
+}
+
+function clearTable(table) {
+	count = -1
+	table.html(init)
+	initTable(expO, expT, expB)
 }

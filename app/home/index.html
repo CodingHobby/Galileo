@@ -8,11 +8,14 @@
 
 	<title>G come Galileo</title>
 
+	<script src="https://www.gstatic.com/firebasejs/3.7.3/firebase.js"></script>
+	<script src="../data/firebase-init.js"></script>
+
 	<script src="libraries/p5.js"></script>
 	<script src="libraries/p5.dom.js"></script>
 	<script src="libraries/p5.sound.js"></script>
 	<script src="sketch.js"></script>
-	<link rel="stylesheet" href="./app.css">
+	<link rel="stylesheet" href="../app.css">
 </head>
 
 <body>
@@ -26,20 +29,17 @@
 			<label>Time Out Threshold:</label>
 		</div>
 
-		<button id="reset">
+		<button id="reset" class="btn">
 			Reset
+		</button>
+		
+		<button id="reset-table" class="btn">
+			Clear Table
 		</button>
 	</div>
 
 	<div class="results">
 		<table id="table">
-			<thead>
-				<tr>
-					<td>Space</td>
-					<td>Prediction</td>
-					<td>Time</td>
-				</tr>
-			</thead>
 		</table>
 	</div>
 </body>

@@ -1,0 +1,89 @@
+body, html {
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	margin: 0;
+	padding: 0;
+	overflow-x: hidden
+}		
+canvas {
+	margin-top: 10%;
+}
+.controls {
+	padding-top: 20px;
+	margin: 5px;
+	font-size: 20px;
+	display: inline-block;
+	margin-top: 20px;
+	border-radius: 4px;
+	width: 100%;
+}
+.btn {
+	transition: all 0.3s linear;
+	font-size: 20px;
+	background-color: #e4e4e4;
+	border-radius: 0;
+	box-shadow: none;
+	border: 1px solid white;
+	padding: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.btn:hover {
+	background-color: #d4d4d4;
+	cursor: pointer;
+}
+table {
+    width: 100%;
+		border-collapse: collapse;
+}
+table, th, td {
+    border: 1px solid black;
+}
+.results {
+	margin: 10px 20%;
+}
+
+#data {
+	width: 100%;
+	text-align: center;
+}
+
+#data table,
+#data th,
+#data td {
+	border: none;
+}
+
+#data {
+	font-size: 20px;
+	font-weight: 100;
+	margin-top: 1%;
+}
+
+#data td {
+	padding: 10px;
+}
+
+#data table {
+	display: inline-block;
+	width: 550px;
+}
+
+#data input[type="text"] {
+	width: 250px;
+	border-radius: 5px;
+	display: inline-block;
+	border: 1px solid #ccc;
+	height: 20px;
+	padding: 10px;
+}
+
+#data input[type="submit"] {
+	margin-top: 20px;
+}
+
+h1 {
+	text-transform: uppercase;
+	margin-bottom: 0;
+}
