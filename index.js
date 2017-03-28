@@ -9,7 +9,7 @@ let data
 function createWindow() {
 	const { width, height } = electron.screen.getPrimaryDisplay().workAreaSize
 	main = new BrowserWindow({ width: width/2, height, x:0, y:0 })
-	data = new BrowserWindow({ width: width/2, height, x:width/2, y:0 })
+	data = new BrowserWindow({ width: width/2, height, x:width/2, y:0, parent: main })
 
 	// and load the index.html of the app.
 	main.loadURL(url.format({
