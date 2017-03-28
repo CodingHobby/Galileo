@@ -1,18 +1,14 @@
 {
   "name": "g-as-in-galileo",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "index.js",
   "repository": "https://github.com/CodingHobby/Galileo.git",
   "author": "codinghobby@gmail.com <codinghobby@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
-  },
-  "devDependencies": {
-    "nodemon": "^1.11.0"
+    "start": "electron ."
   },
   "dependencies": {
-    "express": "^4.15.2"
+    "electron": "^1.6.2"
   }
 }
