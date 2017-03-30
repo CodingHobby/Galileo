@@ -65,7 +65,7 @@ function setup() {
 			expO = [
 				{
 					dist: ts.o1.dist,
-					time: ts.o2.time
+					time: ts.o1.time
 				},
 				{
 					dist: ts.o2.dist,
@@ -76,7 +76,7 @@ function setup() {
 			expT = [
 				{
 					dist: ts.t1.dist,
-					time: ts.t2.time
+					time: ts.t1.time
 				},
 				{
 					dist: ts.t2.dist,
@@ -153,6 +153,7 @@ function reset(expD) {
 // Inizializziamo / Reinizializziamo la tabella
 function initTable(expD, expT, expB) {
 	select('#table').html(init)
+	let n = 0
 	expD.forEach((d, i) => {
 		// Rappresentazioni grafiche per ogni set di dati
 		var eld = [
@@ -169,22 +170,23 @@ function initTable(expD, expT, expB) {
 			createElement('td', (expB[i].dist || 0) + ' cm').id('bs' + i),
 			createElement('td', 't').id('bt' + i)
 		]
-	// Creiamo una riga
-	var tr = createElement('tr')
+		// Creiamo una riga
+		var tr = createElement('tr')
 
-	// Aggiungiamo alla righa ogni colonna
-	eld.forEach(el => {
-		el.parent(tr)
+		// Aggiungiamo alla righa ogni colonna
+		eld.forEach(el => {
+			el.parent(tr)
+		})
+		elt.forEach(el => {
+			el.parent(tr)
+		})
+		elb.forEach(el => {
+			el.parent(tr)
+		})
+		// Aggiungiamo alla tabella la riga che abbiamo creato
+		table.child(tr)
+		n++
 	})
-	elt.forEach(el => {
-		el.parent(tr)
-	})
-	elb.forEach(el => {
-		el.parent(tr)
-	})
-	// Aggiungiamo alla tabella la riga che abbiamo creato
-	table.child(tr)
-})
 }
 
 function clearTable(table) {

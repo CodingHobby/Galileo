@@ -2,12 +2,11 @@
   "name": "g-as-in-galileo",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/CodingHobby/Galileo.git",
   "author": "codinghobby@gmail.com <codinghobby@gmail.com>",
   "license": "MIT",
   "scripts": {
     "start": "electron .",
-    "build": "electron-packager . Galileo"
+    "build": "electron-packager . Galileo --overwrite"
   },
   "dependencies": {
     "electron": "^1.6.2"
